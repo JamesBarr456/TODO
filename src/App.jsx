@@ -1,8 +1,6 @@
 import { useEffect } from "react";
-import cross from "../src/assets/images/icon-cross.svg";
 import sol from "../src/assets/images/icon-sun.svg";
-import check from "../src/assets/images/icon-check.svg";
-import { InputTask } from "./componentes/InputTask";
+import { InputTask } from "./componentes/InputTask.jsx";
 const checkBackground =
   "bg-gradient-to-b from-Check-Background1 to-Check-Background2";
 export const App = () => {
@@ -17,50 +15,7 @@ export const App = () => {
         </header>
         <main className="w-full">
           <InputTask></InputTask>
-          <div className="bg-Very-Dark-Grayish-Blue rounded-md">
-            <ul>
-              <li className="flex items-center justify-evenly h-12 border-b border-Dark-Grayish-Blue">
-                <span
-                  type="checkbox"
-                  className="flex  items-center justify-center w-5 h-5 border rounded-full border-Dark-Grayish-Blue "
-                >
-                  <img src={check} alt="check" className="hidden" />
-                </span>
-                <p className="text-white w-[70%] text-xs">
-                  Complete online JavaScript course
-                </p>
-                <button type="button">
-                  <img src={cross} alt="cross" />
-                </button>
-              </li>
-            </ul>
-            <div className="flex justify-around h-12 items-center">
-              <p className=" text-white text-xs">5 items left</p>
-              <button className=" text-white text-xs" type="button">
-                Clear Completed
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-center h-12 items-center bg-Very-Dark-Grayish-Blue rounded-md mt-4">
-            <button
-              type="button"
-              className="text-Dark-Grayish-Blue text-xs p-2 font-bold hover:text-white focus:text-Bright-Blue"
-            >
-              All
-            </button>
-            <button
-              type="button"
-              className="text-Dark-Grayish-Blue text-xs p-2 font-bold hover:text-white focus:text-Bright-Blue"
-            >
-              Active
-            </button>
-            <button
-              type="button"
-              className="text-Dark-Grayish-Blue text-xs p-2 font-bold hover:text-white focus:text-Bright-Blue"
-            >
-              Completed
-            </button>
-          </div>
+   
         </main>
       </div>
     </div>
