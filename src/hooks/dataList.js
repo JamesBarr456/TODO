@@ -6,3 +6,9 @@ export const initialTasks = [
     { id: 5, tarea: "Pick up groceries", finish: false},
     { id: 6, tarea: "Complete todo App on Frontend Mentor", finish: false},
 ]
+
+export const buttonsFilter = [
+    {id: 20, name: "All"},
+    {id: 21, name: "Active"},
+    {id: 22, name: "Completed"},
+]

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import sol from "../src/assets/images/icon-sun.svg";
 import { InputTask } from "./componentes/InputTask.jsx";
-const checkBackground =
-  "bg-gradient-to-b from-Check-Background1 to-Check-Background2";
+import { FiltersTasks } from "./componentes/FiltersTasks.jsx";
+
 export const App = () => {
   return (
     <div className="bg-mobile-dark bg-contain font-Josefin-Sans  h-screen bg-no-repeat md:bg-desktop-dark bg-Very-Dark-Blue">
@@ -15,7 +15,7 @@ export const App = () => {
         </header>
         <main className="w-full">
           <InputTask></InputTask>
-   
+          <FiltersTasks></FiltersTasks>
         </main>
       </div>
     </div>

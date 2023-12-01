@@ -1,18 +1,20 @@
 import { useReducer } from "react";
-// import cross from "../src/assets/images/icon-cross.svg";
-// import check from "../src/assets/images/icon-check.svg";
 import { useForm } from "../hooks/useForm";
 import { initialTasks } from "../hooks/dataList.js";
-import { List } from "./List.jsx";
+import { RenderList } from "./RenderList.jsx";
 
 const tasksReducer = (state, action) => {
   switch (action.type) {
     case "[TASKS] Add_Task":
       return [...state, action.payload];
-    case "[TASKS] Delete_Task":
-      return {
-        tasks: state.tasks.filter((task) => task.id !== action.payload)
-      }
+    // case "[TASKS] Delete_Task":
+    //   return {
+    //     tasks: state.tasks.filter((task) => task.id !== action.payload)
+    //   }
+    case "[TASKS] Update_Task_State":
+      return state.map((task) =>
+        task.id === action.payload ? { ...task, finish: !task.finish } : task
+      );
     case "[TASKS] Clear_Tasks":
       return [];
     default:
@@ -40,6 +42,20 @@ export const InputTask = () => {
     console.log(taskState)
   };
 
+  const clearTasks = () => {
+    const action = {
+      type: "[TASKS] Clear_Tasks",
+    }
+    dispatch(action)
+  }
+  const updateTaskState = (taskId) => {
+    const action = {
+      type: "[TASKS] Update_Task_State",
+      payload: taskId
+    };
+    dispatch(action);
+  };
+
   return (
     <>
       <form
@@ -57,10 +73,10 @@ export const InputTask = () => {
         />
       </form>
       <div className="bg-Very-Dark-Grayish-Blue rounded-md">
-        <List objets={taskState}></List>
+        <RenderList objets={taskState} updateTaskState={updateTaskState}></RenderList>
         <div className="flex justify-around h-12 items-center">
           <p className=" text-white text-xs">5 items left</p>
-          <button className=" text-white text-xs" type="button">
+          <button onClick={clearTasks} className=" text-white text-xs" type="button">
             Clear Completed
           </button>
         </div>
