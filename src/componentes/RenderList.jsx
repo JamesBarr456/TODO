@@ -1,10 +1,15 @@
 import cross from "../assets/images/icon-cross.svg";
 import check from "../assets/images/icon-check.svg";
-export const RenderList = ({ objets, updateTaskState }) => {
+export const RenderList = ({ objets, updateTaskState, deleteTasks }) => {
 
-  const handleSpanClick = (taskId) => {
+  const handleCheckClick = (taskId) => {
     updateTaskState(taskId);
   };
+
+  const handleCrossClick = (taskId) => {
+    deleteTasks(taskId);
+  }
+
   return (
     <ul>
       {objets.map(task => (
@@ -17,7 +22,7 @@ export const RenderList = ({ objets, updateTaskState }) => {
                      border-b 
                    border-Dark-Grayish-Blue">
           <span
-            onClick={() => handleSpanClick(task.id)}
+            onClick={() => handleCheckClick(task.id)}
             type="checkbox"
             className={`flex 
                            items-center 
@@ -44,7 +49,8 @@ export const RenderList = ({ objets, updateTaskState }) => {
             type="button">
             <img
               src={cross}
-              alt="cross" />
+              alt="cross" 
+              onClick={handleCrossClick(task.id)}/>
           </button>
         </li>
       ))}

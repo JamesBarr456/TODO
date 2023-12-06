@@ -7,10 +7,11 @@ const tasksReducer = (state, action) => {
   switch (action.type) {
     case "[TASKS] Add_Task":
       return [...state, action.payload];
-    // case "[TASKS] Delete_Task":
-    //   return {
-    //     tasks: state.tasks.filter((task) => task.id !== action.payload)
-    //   }
+    case "[TASKS] Delete_Task":
+      return state.filter( task => task.id !== action.payload)
+      
+        // tasks: state.tasks.filter((task) => task.id !== action.payload)
+      
     case "[TASKS] Update_Task_State":
       return state.map((task) =>
         task.id === action.payload ? { ...task, finish: !task.finish } : task
@@ -41,7 +42,13 @@ export const InputTask = () => {
     dispatch(action)
     console.log(taskState)
   };
-
+  const deleteTasks = (taskId) => {
+    const action = {
+      type: "[TASKS] Delete_Task",
+      payload: taskId
+    }
+    dispatch(action)
+  }
   const clearTasks = () => {
     const action = {
       type: "[TASKS] Clear_Tasks",
@@ -62,7 +69,14 @@ export const InputTask = () => {
         className="flex gap-1 items-center justify-evenly h-12 rounded-md bg-Very-Dark-Grayish-Blue mb-5 "
         onSubmit={addTasks}
       >
-        <span className="w-5 h-5 border rounded-full border-Dark-Grayish-Blue"></span>
+        <span
+          className="
+          w-5 
+          h-5 
+          border 
+          rounded-full 
+          border-Dark-Grayish-Blue">
+        </span>
         <input
           type="text"
           className="bg-Very-Dark-Grayish-Blue w-[80%] text-xs"
@@ -72,8 +86,15 @@ export const InputTask = () => {
           onChange={onInputChange}
         />
       </form>
-      <div className="bg-Very-Dark-Grayish-Blue rounded-md">
-        <RenderList objets={taskState} updateTaskState={updateTaskState}></RenderList>
+      <div
+        className="
+        bg-Very-Dark-Grayish-Blue 
+          rounded-md">
+        <RenderList
+          objets={taskState}
+          updateTaskState={updateTaskState}
+          deleteTasks={deleteTasks}>
+        </RenderList>
         <div className="flex justify-around h-12 items-center">
           <p className=" text-white text-xs">5 items left</p>
           <button onClick={clearTasks} className=" text-white text-xs" type="button">
