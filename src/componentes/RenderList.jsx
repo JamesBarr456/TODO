@@ -1,6 +1,5 @@
 import cross from "../assets/images/icon-cross.svg";
 import check from "../assets/images/icon-check.svg";
-import { ThemeContext } from "../hooks/themeContext.js";
 import { useContext } from "react";
 useContext;
 export const RenderList = ({
@@ -9,8 +8,9 @@ export const RenderList = ({
   objets,
   updateTaskState,
   deleteTask,
+  changeTheme,
 }) => {
-  const { changeTheme, setChangeTheme } = useContext(ThemeContext);
+  
   const tasksRender = () => {
     if (showActive) {
       return objets.filter((task) => !task.finish);
@@ -32,7 +32,9 @@ export const RenderList = ({
                      justify-evenly 
                      h-12 
                      border-b 
-                   border-Dark-Grayish-Blue"
+                   border-Light-Grayish-Blue"
+            onMouseEnter={(e) => e.currentTarget.querySelector('.cross-button').classList.remove('opacity-0')}
+            onMouseLeave={(e) => e.currentTarget.querySelector('.cross-button').classList.add('opacity-0')}
           >
             <span
               onClick={() => updateTaskState(task.id)}
@@ -44,12 +46,10 @@ export const RenderList = ({
                            h-5 
                            border 
                            rounded-full
-                         border-Dark-Grayish-Blue 
-                           ${
-                             task.finish
-                               ? "bg-gradient-to-b from-Check-Background1 to-Check-Background2"
-                               : ""
-                           }`}
+                           border-Light-Grayish-Blue
+                           hover:border-Check-Background1
+                           ${task.finish ? "bg-gradient-to-b from-Check-Background1 to-Check-Background2"
+                                         : "" }`}
             >
               <img
                 src={check}
@@ -60,15 +60,17 @@ export const RenderList = ({
             <p
               className={`w-[70%] 
                           text-xs
-                          ${
-                            task.finish
-                              ? "line-through text-Dark-Grayish-Blue"
-                              : "text-white "
-                          }`}
+                          ${!changeTheme ? ' text-Dark-Grayish-Blue' 
+                                         : ' text-white'}
+                          ${task.finish  ? "line-through text-Light-Grayish-Blue "
+                                         : null}`}
             >
               {task.tarea}
             </p>
-            <button type="button" onClick={() => deleteTask(task.id)}>
+            <button 
+              type="button" 
+              className="opacity-0 cross-button"
+              onClick={() => deleteTask(task.id)}>
               <img src={cross} alt="cross" />
             </button>
           </li>

@@ -22,12 +22,12 @@ export const App = () => {
         <div
           className="container 
                    flex 
+                   flex-col 
+                   items-center
+                   h-full  
                    w-[88%] 
                    lg:w-[50%]
-                   h-full  
-                   mx-auto 
-                   flex-col 
-                   items-center "
+                   mx-auto"
         >
           <header
             className="flex 

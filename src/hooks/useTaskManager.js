@@ -12,7 +12,7 @@ const tasksReducer = (state, action) => {
         task.id === action.payload ? { ...task, finish: !task.finish } : task
       );
     case "[TASKS] Clear_Tasks":
-      return [];
+      return state.filter((task) => !task.finish);
     default:
       break;
   }
