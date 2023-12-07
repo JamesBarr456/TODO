@@ -1,6 +1,8 @@
 import cross from "../assets/images/icon-cross.svg";
 import check from "../assets/images/icon-check.svg";
-
+import { ThemeContext } from "../hooks/themeContext.js";
+import { useContext } from "react";
+useContext;
 export const RenderList = ({
   showActive,
   showCompleted,
@@ -8,6 +10,7 @@ export const RenderList = ({
   updateTaskState,
   deleteTask,
 }) => {
+  const { changeTheme, setChangeTheme } = useContext(ThemeContext);
   const tasksRender = () => {
     if (showActive) {
       return objets.filter((task) => !task.finish);
@@ -17,7 +20,6 @@ export const RenderList = ({
       return objets;
     }
   };
-
 
   return (
     <>
@@ -58,8 +60,11 @@ export const RenderList = ({
             <p
               className={`w-[70%] 
                           text-xs
-                          ${task.finish ? "line-through text-Dark-Grayish-Blue" 
-                                        : "text-white "}`}
+                          ${
+                            task.finish
+                              ? "line-through text-Dark-Grayish-Blue"
+                              : "text-white "
+                          }`}
             >
               {task.tarea}
             </p>
