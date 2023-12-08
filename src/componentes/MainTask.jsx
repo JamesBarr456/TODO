@@ -10,7 +10,7 @@ import { ThemeContext } from "../hooks/themeContext.js";
 export const MainTask = () => {
   //Hooks
   const { task, formState, onInputChange } = useForm({ tarea: "" });
-  const { taskState, addTasks, clearTasks, updateTasks, deleteTask } =
+  const { taskState, setData, addTasks, clearTasks, updateTasks, deleteTask } =
     useTaskManager({ formState });
   const { changeTheme, setChangeTheme } = useContext(ThemeContext);
 
@@ -30,9 +30,7 @@ export const MainTask = () => {
     setShowCompleted(false);
   };
 
-  // Almacenamiento local para las tareas
-  const localStorageKey = "tasks";
-
+  
   const completedTasks = () => {
     if (showCompleted === true) return;
     setShowCompleted(!showCompleted);
@@ -45,6 +43,8 @@ export const MainTask = () => {
     setShowCompleted(false);
     setShowActive(false);
   };
+  
+  
 
 
   useEffect(() => {

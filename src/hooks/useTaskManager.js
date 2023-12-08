@@ -1,5 +1,6 @@
-import { useReducer } from "react";
+import { useReducer, useEffect} from "react";
 import { initialTasks } from "../hooks/dataList";
+import { useLocalStorage } from "./useLocalStorage";
 
 const tasksReducer = (state, action) => {
   switch (action.type) {
@@ -18,8 +19,11 @@ const tasksReducer = (state, action) => {
   }
 };
 export const useTaskManager = ({formState}) => {
-  const [taskState, dispatch] = useReducer(tasksReducer, initialTasks);
- 
+  // Almacenamiento local para las tareas
+  const localStorageKey = "tasks";
+  const [data, setData] = useLocalStorage(localStorageKey, initialTasks)
+  const [taskState, dispatch] = useReducer(tasksReducer, data);
+  
   const addTasks = (event) => {
     event.preventDefault();
     if (formState == "") return;
@@ -54,5 +58,8 @@ export const useTaskManager = ({formState}) => {
     };
     dispatch(action);
   };
-  return { taskState, addTasks, clearTasks, updateTasks, deleteTask }
+  useEffect(() => {
+    window.localStorage.setItem(localStorageKey, JSON.stringify(taskState));
+  }, [taskState]);
+  return { taskState,setData, addTasks, clearTasks, updateTasks, deleteTask }
 }
