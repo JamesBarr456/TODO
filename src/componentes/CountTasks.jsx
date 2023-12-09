@@ -9,7 +9,8 @@ export const CountTasks = ({ object }) => {
     <div>
       <p
         className="text-Dark-Grayish-Blue 
-                     text-xs"
+                     text-xs
+                     md:text-lg"
       >
         {count} items left
       </p>

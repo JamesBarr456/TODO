@@ -3,21 +3,20 @@ import check from "../assets/images/icon-check.svg";
 import { useContext } from "react";
 useContext;
 export const RenderList = ({
-  showActive,
-  showCompleted,
-  objets,
+  object,
+  filter,
   updateTaskState,
   deleteTask,
   changeTheme,
 }) => {
   
   const tasksRender = () => {
-    if (showActive) {
-      return objets.filter((task) => !task.finish);
-    } else if (showCompleted) {
-      return objets.filter((task) => task.finish);
+    if (filter === "active") {
+      return object.filter((task) => !task.finish);
+    } else if (filter === "completed") {
+      return object.filter((task) => task.finish);
     } else {
-      return objets;
+      return object;
     }
   };
 
@@ -30,9 +29,10 @@ export const RenderList = ({
             className="flex 
                      items-center 
                      justify-evenly 
-                     h-12 
+                     min-h-12 
                      border-b 
-                   border-Light-Grayish-Blue"
+                   border-Light-Grayish-Blue
+                     "
             onMouseEnter={(e) => e.currentTarget.querySelector('.cross-button').classList.remove('opacity-0')}
             onMouseLeave={(e) => e.currentTarget.querySelector('.cross-button').classList.add('opacity-0')}
           >
@@ -47,7 +47,7 @@ export const RenderList = ({
                            border 
                            rounded-full
                            border-Light-Grayish-Blue
-                           hover:border-Check-Background1
+                           hover:border-{linear-gradient Check-Background1 to Check-Background2"}
                            ${task.finish ? "bg-gradient-to-b from-Check-Background1 to-Check-Background2"
                                          : "" }`}
             >
@@ -59,11 +59,15 @@ export const RenderList = ({
             </span>
             <p
               className={`w-[70%] 
+                          py-2
                           text-xs
+                          md:text-lg
                           ${!changeTheme ? ' text-Dark-Grayish-Blue' 
                                          : ' text-white'}
                           ${task.finish  ? "line-through text-Light-Grayish-Blue "
-                                         : null}`}
+                                         : null}
+                            overflow-hidden
+                            text-ellipsis`}
             >
               {task.tarea}
             </p>

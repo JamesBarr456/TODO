@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ThemeContext } from "./hooks/themeContext";
 
 export const App = () => {
-  const [changeTheme, setChangeTheme] = useState(false);
+  const [changeTheme, setChangeTheme] = useState(true);
   return (
     <ThemeContext.Provider value={{ changeTheme, setChangeTheme }}>
       <div

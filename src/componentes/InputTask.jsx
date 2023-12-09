@@ -22,7 +22,8 @@ export const InputTask = ({ addTasks, onInputChange, task, changeTheme }) => {
       <input
         type="text"
         className={`w-[80%] 
-                     text-xs 
+                     text-xs
+                     md:text-lg 
                      ${!changeTheme ? 'bg-white text-Dark-Grayish-Blue' : 'bg-Very-Dark-Desaturated-Blue text-white'}
                      focus:border-transparent
                      focus:outline-none`}

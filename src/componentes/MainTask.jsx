@@ -10,55 +10,25 @@ import { ThemeContext } from "../hooks/themeContext.js";
 export const MainTask = () => {
   //Hooks
   const { task, formState, onInputChange } = useForm({ tarea: "" });
-  const { taskState, setData, addTasks, clearTasks, updateTasks, deleteTask } =
+  const { taskState, addTasks, clearTasks, updateTasks, deleteTask } =
     useTaskManager({ formState });
   const { changeTheme, setChangeTheme } = useContext(ThemeContext);
-
   //Window Width
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-
   //Estados de Filtro
-  const [showCompleted, setShowCompleted] = useState(false);
-  const [showActive, setShowActive] = useState(false);
-  const [showAll, setShowAll] = useState(true);
-
-  //Funciones de Filtros (Mejorar esto si o si es una verguenza XD)
-  const activeTasks = () => {
-    if (showActive === true) return;
-    setShowActive(!showActive);
-    setShowAll(false);
-    setShowCompleted(false);
-  };
-
-  
-  const completedTasks = () => {
-    if (showCompleted === true) return;
-    setShowCompleted(!showCompleted);
-    setShowActive(false);
-    setShowAll(false);
-  };
-  const allTasks = () => {
-    if (showAll === true) return;
-    setShowAll(!showAll);
-    setShowCompleted(false);
-    setShowActive(false);
-  };
-  
-  
-
-
+  const [filter, setFilter] = useState("all");
+  // Lectura del cambio de WidthScreen
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
     };
-    handleResize(); // Set initial screen size
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  
 
   return (
     <>
@@ -78,9 +48,8 @@ export const MainTask = () => {
                  `}
       >
         <RenderList
-          showActive={showActive}
-          showCompleted={showCompleted}
-          objets={taskState}
+          object={taskState}
+          filter={filter}
           updateTaskState={updateTasks}
           deleteTask={deleteTask}
           changeTheme={changeTheme}
@@ -89,20 +58,20 @@ export const MainTask = () => {
           className="flex 
                      justify-around 
                      items-center 
-                     h-12"
+                     h-12
+                     mb-5"
         >
           <CountTasks object={taskState}></CountTasks>
           {!isSmallScreen && (
             <FiltersTasks
-              activeTasks={activeTasks}
-              completedTasks={completedTasks}
-              allTasks={allTasks}
+              setFilter={setFilter}
               changeTheme={changeTheme}
             ></FiltersTasks>
           )}
           <button
             onClick={clearTasks}
-            className="text-xs 
+            className="text-xs
+                       md:text-lg
                      text-Light-Grayish-Blue 
                      hover:text-Dark-Grayish-Blue"
             type="button"
@@ -113,9 +82,7 @@ export const MainTask = () => {
       </div>
       {isSmallScreen && (
         <FiltersTasks
-          activeTasks={activeTasks}
-          completedTasks={completedTasks}
-          allTasks={allTasks}
+          setFilter={setFilter}
           changeTheme={changeTheme}
         ></FiltersTasks>
       )}

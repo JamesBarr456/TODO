@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { buttonsFilter } from "../hooks/dataList";
-export const FiltersTasks = ({ activeTasks, allTasks, completedTasks, changeTheme }) => {
+export const FiltersTasks = ({ setFilter, changeTheme }) => {
   const [filters, setFilters] = useState(buttonsFilter);
   return (
     <div
@@ -19,18 +19,19 @@ export const FiltersTasks = ({ activeTasks, allTasks, completedTasks, changeThem
         <button
           key={filter.id}
           type="button"
-          className="text-xs 
+          className="text-xs
+                     md:text-lg
                      font-bold 
                      p-2 
                     text-Light-Grayish-Blue 
                     hover:text-Dark-Grayish-Blue
                     focus:text-Bright-Blue"
           onClick={
-            filter.name === "Active"
-              ? activeTasks
-              : filter.name === "Completed"
-              ? completedTasks
-              : allTasks
+            () => filter.name ==="Active"
+                            ? setFilter("active")
+                            : filter.name ==="Completed"
+                            ? setFilter("completed")
+                            : setFilter("all")
           }
         >
           {filter.name}
